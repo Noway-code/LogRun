@@ -6,9 +6,9 @@ namespace LogRun
 {
     class Dialog
     {
-        const string menu = "1. Add Exercise.\n2. View Graphs.\n3. View Data.\n4. Save and Exit.";
+        const string Menu = "1. Add Exercise.\n2. View Graphs.\n3. View Logs.\n4. Load Data\n5. Save and Exit.";
 
-        public void TextWrapper(string str = menu)
+        public void TextWrapper(string str = Menu)
         {
             string [] substrings= str.Split('\n');
             int maxLength = substrings.Max(s => s.Length);
@@ -48,19 +48,25 @@ namespace LogRun
             int selection = -1;
             Dialog dialog = new Dialog();
 
-            dialog.TextWrapper("Welcome to LogRun! Enter 0 for menu.");
-            Console.Write("Please select your choice: ");
-            while (selection == -1)
+            dialog.TextWrapper("Welcome to LogRun! Enter 0 for menu.\nRemember to load your data before adding new content!");
+
+            while (true)
             {
+                Console.Write("Select your choice: ");
                 if (int.TryParse(Console.ReadLine(), out selection))
                 {
+
                     if (selection == 0)
                         dialog.TextWrapper();
+                    else
+                    {
+                        Helper(selection);
+                    }
                 }
                 else
                 {
                     Console.WriteLine();
-                    Console.Write("Please Try Again. Please select your choice: ");
+                    Console.Write("Invalid Arguement. ");
                     selection = -1;
                 }
             }
@@ -68,6 +74,52 @@ namespace LogRun
 
         public static void Helper(int selection)
         {
+            Console.WriteLine($"Selection {selection}");
+            switch (selection)
+            {
+                // Add Exercise
+                case 1:
+                {
+                    // ExerciseHandler();
+                    Console.WriteLine("Waiting to return...");
+                    Console.ReadLine();
+                    break;
+                }
+                // View Graphs
+                case 2:
+                {
+                    Console.WriteLine("Waiting to return...");
+                    Console.ReadLine();
+                    break;
+                }
+                // View Logs
+                case 3:
+                {
+                    Console.WriteLine("Waiting to return...");
+                    Console.ReadLine();
+                    break;
+                }
+                // Load Data
+                case 4:
+                {
+                    Console.WriteLine("Waiting to return...");
+                    Console.ReadLine();
+                    break;
+                }
+                // Save and Exit
+                case 5:
+                {
+                    Console.WriteLine("Exiting...");
+                    Environment.Exit(0);
+                    break;
+                }
+                default:
+                {
+                    Console.WriteLine("No option found.");
+                    return;
+                }
+
+            }
         }
 
 
