@@ -1,73 +1,33 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using System.ComponentModel.DataAnnotations;
+using Exercise;
+using Dialog;
 
 namespace LogRun
 {
-    class Dialog
-    {
-        const string Menu = "1. Add Exercise.\n2. View Graphs.\n3. View Logs.\n4. Load Data\n5. Save and Exit.";
-
-        public void TextWrapper(string str = Menu)
-        {
-            string [] substrings= str.Split('\n');
-            int maxLength = substrings.Max(s => s.Length);
-            int numSubstrings = substrings.Length;
-
-            // Print top border
-            Console.Write("+");
-            for (int i = 0; i < maxLength + 2; i++)
-            {
-                Console.Write("-");
-            }
-            Console.WriteLine("+");
-
-            // Print each line of the menu, wrapped in borders
-            foreach (string s in substrings)
-            {
-                Console.WriteLine($"| {s.PadRight(maxLength)} |");
-            }
-
-            Console.Write("+");
-            for (int i = 0; i < maxLength + 2; i++)
-            {
-                Console.Write("-");
-            }
-            Console.WriteLine("+");
-            Console.WriteLine();
-
-            // Console.WriteLine($"Number of lines (substrings): {numSubstrings}");
-        }
-    }
-
-
     class Log
     {
         public static void Main(String[] args)
         {
             int selection = -1;
-            Dialog dialog = new Dialog();
-
-            dialog.TextWrapper("Welcome to LogRun! Enter 0 for menu.\nRemember to load your data before adding new content!");
+            DialogHelper dialogHandler = new DialogHelper();
+            dialogHandler.TextWrapper("Welcome to LogRun! Enter 0 for menu.\nRemember to load your data before adding new content!");
 
             while (true)
             {
-                Console.Write("Select your choice: ");
-                if (int.TryParse(Console.ReadLine(), out selection))
+                if (dialogHandler.GetSelection(out selection))
                 {
-
                     if (selection == 0)
-                        dialog.TextWrapper();
+                        dialogHandler.TextWrapper();
+                    else if (selection == -1)
+                        Console.WriteLine("Invalid Argument.");
                     else
-                    {
                         Helper(selection);
-                    }
                 }
                 else
                 {
-                    Console.WriteLine();
-                    Console.Write("Invalid Arguement. ");
-                    selection = -1;
+                    Console.WriteLine("Invalid Input.");
                 }
             }
         }
@@ -80,7 +40,7 @@ namespace LogRun
                 // Add Exercise
                 case 1:
                 {
-                    // ExerciseHandler();
+                    ExerciseHandler();
                     Console.WriteLine("Waiting to return...");
                     Console.ReadLine();
                     break;
@@ -102,6 +62,7 @@ namespace LogRun
                 // Load Data
                 case 4:
                 {
+                    DataHandler(0);
                     Console.WriteLine("Waiting to return...");
                     Console.ReadLine();
                     break;
@@ -109,6 +70,7 @@ namespace LogRun
                 // Save and Exit
                 case 5:
                 {
+                    DataHandler(1);
                     Console.WriteLine("Exiting...");
                     Environment.Exit(0);
                     break;
@@ -122,6 +84,16 @@ namespace LogRun
             }
         }
 
+        private static void ExerciseHandler()
+        {
+            Exercise.Workout workout = new Workout();
+            workout.AddWorkout();
+        }
+
+        private static void DataHandler(int method)
+        {
+
+        }
 
     }
 
