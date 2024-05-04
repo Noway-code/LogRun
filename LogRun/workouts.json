@@ -1,0 +1,20 @@
+[
+  {
+    "Duration": "00:30:00",
+    "Distance": "5.0",
+    "Date": "05/04/2024",
+    "Type": "Interval"
+  },
+  {
+    "Duration": "01:00:00",
+    "Distance": "10.0",
+    "Date": "05/05/2024",
+    "Type": "Long Run"
+  },
+  {
+    "Duration": "32:23:23",
+    "Distance": "2",
+    "Date": "03/23/2332",
+    "Type": "Interval"
+  }
+]

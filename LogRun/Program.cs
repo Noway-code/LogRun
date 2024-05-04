@@ -96,7 +96,11 @@ namespace LogRun
         private static void ExerciseHandler()
         {
             Exercise.Workout workout = new Workout();
-            workout.AddWorkout();
+
+            if (workout.AddWorkout())
+            {
+                workouts.Add(workout);
+            }
         }
 
         private static void LoadData()
