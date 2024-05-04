@@ -35,11 +35,12 @@ namespace Dialog
             // Console.WriteLine($"Number of lines (substrings): {numSubstrings}");
         }
 
-        public bool GetSelection(out int selection)
+        public bool GetSelection(out int selection, string s = "Select your choice: ")
         {
-            Console.Write("Select your choice: ");
+            Console.Write(s);
             return int.TryParse(Console.ReadLine(), out selection) && selection >= -1;
         }
+
     }
 }
 
