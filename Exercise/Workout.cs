@@ -51,14 +51,11 @@ namespace Exercise
 
             while (true)
             {
-                Console.WriteLine("\nCurrent Workout Details:");
-                Console.WriteLine($"1. Duration: {Duration}");
-                Console.WriteLine($"2. Distance: {Distance} miles");
-                Console.WriteLine($"3. Date: {Date}");
-                Console.WriteLine($"4. Type: {Type}");
-                Console.WriteLine("5. Confirm and Save");
-                Console.WriteLine("6. Cancel");
-                Console.WriteLine("Select the number to edit, or confirm/save:");
+                dialog.TextWrapper($"1. Duration: {Duration}\n" +
+                                   $"2. Distance: {Distance} miles\n" +
+                                   $"3. Date: {Date}\n" +
+                                   $"4. Type: {Type}\n\n" +
+                                   $"5. Confirm and Save");
 
                 if (!dialog.GetSelection(out editChoice))
                 {
@@ -81,11 +78,16 @@ namespace Exercise
                         Type = TypeHelper();
                         break;
                     case 5:
-                        Console.WriteLine("Workout details saved successfully.");
-                        return true;
-                    case 6:
-                        Console.WriteLine("Workout not saved.");
-                        return false;
+                        if (ValidateWorkoutDetails())
+                        {
+                            Console.WriteLine("Workout details saved successfully.");
+                            return true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Please correct the invalid details before saving.");
+                            continue;
+                        }
                     default:
                         Console.WriteLine("Invalid selection. Please select a valid option.");
                         continue;
@@ -139,6 +141,33 @@ namespace Exercise
             Console.Write("Enter the type of run (e.g., 'Interval', 'Long Run'): ");
             string input = Console.ReadLine();
             return input;  // Assuming no validation needed here
+        }
+
+        private bool ValidateWorkoutDetails()
+        {
+            bool isValid = true;
+            if (string.IsNullOrWhiteSpace(Duration) || !Regex.IsMatch(Duration, @"^(0?[0-9]|[1-9][0-9]):([0-5][0-9]):([0-5][0-9])$"))
+            {
+                isValid = false;
+                Console.WriteLine("Invalid Duration. It should be in HH:MM:SS format.");
+            }
+            if (string.IsNullOrWhiteSpace(Distance) || !decimal.TryParse(Distance, out decimal _))
+            {
+                isValid = false;
+                Console.WriteLine("Invalid Distance. It should be a valid decimal number.");
+            }
+            if (string.IsNullOrWhiteSpace(Date) || !Regex.IsMatch(Date, @"^(0[1-9]|1[012])/(0[1-9]|[12][0-9]|3[01])/\d{4}$"))
+            {
+                isValid = false;
+                Console.WriteLine("Invalid Date. It should be in MM/DD/YYYY format.");
+            }
+            if (string.IsNullOrWhiteSpace(Type))
+            {
+                isValid = false;
+                Console.WriteLine("Invalid Type. It should not be empty.");
+            }
+
+            return isValid;
         }
     }
 }

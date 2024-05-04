@@ -16,5 +16,11 @@
     "Distance": "2",
     "Date": "03/23/2332",
     "Type": "Interval"
+  },
+  {
+    "Duration": "23:23:23",
+    "Distance": "2",
+    "Date": "03/03/0333",
+    "Type": "I"
   }
 ]
